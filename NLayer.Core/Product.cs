@@ -13,6 +13,6 @@ namespace NLayer.Core
         public string Price { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public ProductFeature? ProductFeature { get; set; }
+        public ProductFeature ProductFeature { get; set; }
     }
 }
