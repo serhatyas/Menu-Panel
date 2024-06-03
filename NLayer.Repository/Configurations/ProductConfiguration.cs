@@ -20,7 +20,7 @@ namespace NLayer.Repository.Configurations
             builder.Property(x => x.Stock).IsRequired();
 
             builder.Property(x=>x.Price).IsRequired().HasColumnType("decimal(18,2)");
-            builder.ToTable("Product");
+            builder.ToTable("Products");
 
             builder.HasOne(x=>x.Category).WithMany(x => x.Products).HasForeignKey(x => x.CategoryId);
         }
