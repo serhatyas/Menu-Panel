@@ -1,33 +1,28 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLayer.Core;
 using NLayer.Core.DTOs;
 using NLayer.Core.Model;
 using NLayer.Core.Services;
-using NLayer.Service.Services;
+
 
 namespace NLayer.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class ProductsController : CustomBaseController
     {
         private readonly IMapper _mapper;
-        private readonly IService<Product> _service;
-        private readonly IProductService _productService;
+        private readonly IProductService _service;
 
         public ProductsController(IMapper mapper, IService<Product> service, IProductService productService)
         {
             _mapper = mapper;
-            _service = service;
-            _productService = productService;
+            _service = productService;
         }
 
         [HttpGet("[Action]")]
         public async Task<IActionResult> GetProductWithCategory()
         {
-            return CreateActionResult(await _productService.GetProductsWitCategory());
+            return CreateActionResult(await _service.GetProductsWitCategory());
         }
 
         [HttpGet]
