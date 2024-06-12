@@ -25,7 +25,7 @@ namespace NLayer.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -39,9 +39,9 @@ namespace NLayer.Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product_Categories_CategoryId",
+                        name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
@@ -63,9 +63,9 @@ namespace NLayer.Repository.Migrations
                 {
                     table.PrimaryKey("PK_ProductFeatures", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductFeatures_Product_ProductId",
+                        name: "FK_ProductFeatures_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Product",
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -86,15 +86,15 @@ namespace NLayer.Repository.Migrations
                 values: new object[] { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Defterler", null });
 
             migrationBuilder.InsertData(
-                table: "Product",
+                table: "Products",
                 columns: new[] { "Id", "CategoryId", "DateTime", "Name", "Price", "Stock", "UpdateDate" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 6, 1, 2, 59, 54, 910, DateTimeKind.Local).AddTicks(6040), "Kalem 1", 100m, 20, null },
-                    { 2, 1, new DateTime(2024, 6, 1, 2, 59, 54, 910, DateTimeKind.Local).AddTicks(6051), "Kalem 2", 120m, 200, null },
-                    { 3, 1, new DateTime(2024, 6, 1, 2, 59, 54, 910, DateTimeKind.Local).AddTicks(6052), "Kalem 3", 150m, 25, null },
-                    { 4, 2, new DateTime(2024, 6, 1, 2, 59, 54, 910, DateTimeKind.Local).AddTicks(6053), "Kitap 1", 400m, 30, null },
-                    { 5, 2, new DateTime(2024, 6, 1, 2, 59, 54, 910, DateTimeKind.Local).AddTicks(6054), "Kitap 2", 200m, 10, null }
+                    { 1, 1, new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3430), "Kalem 1", 100m, 20, null },
+                    { 2, 1, new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3440), "Kalem 2", 120m, 200, null },
+                    { 3, 1, new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3441), "Kalem 3", 150m, 25, null },
+                    { 4, 2, new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3442), "Kitap 1", 400m, 30, null },
+                    { 5, 2, new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3443), "Kitap 2", 200m, 10, null }
                 });
 
             migrationBuilder.InsertData(
@@ -103,15 +103,15 @@ namespace NLayer.Repository.Migrations
                 values: new object[] { 1, "Kırmızı", 100, 1, 200 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_CategoryId",
-                table: "Product",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ProductFeatures_ProductId",
                 table: "ProductFeatures",
                 column: "ProductId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
+                table: "Products",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -120,7 +120,7 @@ namespace NLayer.Repository.Migrations
                 name: "ProductFeatures");
 
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Categories");
