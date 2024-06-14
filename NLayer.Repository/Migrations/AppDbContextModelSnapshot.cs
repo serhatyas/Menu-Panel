@@ -105,7 +105,7 @@ namespace NLayer.Repository.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            DateTime = new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3430),
+                            DateTime = new DateTime(2024, 6, 13, 23, 47, 3, 345, DateTimeKind.Local).AddTicks(5432),
                             Name = "Kalem 1",
                             Price = 100m,
                             Stock = 20
@@ -114,7 +114,7 @@ namespace NLayer.Repository.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            DateTime = new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3440),
+                            DateTime = new DateTime(2024, 6, 13, 23, 47, 3, 345, DateTimeKind.Local).AddTicks(5450),
                             Name = "Kalem 2",
                             Price = 120m,
                             Stock = 200
@@ -123,7 +123,7 @@ namespace NLayer.Repository.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
-                            DateTime = new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3441),
+                            DateTime = new DateTime(2024, 6, 13, 23, 47, 3, 345, DateTimeKind.Local).AddTicks(5452),
                             Name = "Kalem 3",
                             Price = 150m,
                             Stock = 25
@@ -132,7 +132,7 @@ namespace NLayer.Repository.Migrations
                         {
                             Id = 4,
                             CategoryId = 2,
-                            DateTime = new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3442),
+                            DateTime = new DateTime(2024, 6, 13, 23, 47, 3, 345, DateTimeKind.Local).AddTicks(5454),
                             Name = "Kitap 1",
                             Price = 400m,
                             Stock = 30
@@ -141,7 +141,7 @@ namespace NLayer.Repository.Migrations
                         {
                             Id = 5,
                             CategoryId = 2,
-                            DateTime = new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3443),
+                            DateTime = new DateTime(2024, 6, 13, 23, 47, 3, 345, DateTimeKind.Local).AddTicks(5456),
                             Name = "Kitap 2",
                             Price = 200m,
                             Stock = 10
@@ -183,6 +183,40 @@ namespace NLayer.Repository.Migrations
                             Height = 100,
                             ProductId = 1,
                             Width = 200
+                        });
+                });
+
+            modelBuilder.Entity("NLayer.Core.Model.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "nesil",
+                            Password = "nesilpaspatur1*."
                         });
                 });
 

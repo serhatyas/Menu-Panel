@@ -10,8 +10,4 @@
     <EditorConfigFiles Remove="C:\Users\serha\source\repos\NLayerApp\NLayer.Core\Services\.editorconfig" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="C:\Users\serha\source\repos\NLayerApp\NLayer.Core\Services\.editorconfig" />
-  </ItemGroup>
-
 </Project>
