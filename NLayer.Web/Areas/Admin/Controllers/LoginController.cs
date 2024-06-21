@@ -49,7 +49,7 @@ namespace NLayer.Web.Areas.Admin.Controllers
 
                  await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
-                return RedirectToAction("Admin","Home","Index");
+                return Redirect("/Admin");
             }
 
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -61,7 +61,7 @@ namespace NLayer.Web.Areas.Admin.Controllers
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Admin", "Login");
+            return Redirect("/Admin/Login");
         }
     }
 

@@ -30,6 +30,8 @@ builder.Services.Configure<ApiBehaviorOptions>(option =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped(typeof(NotFoundFilter<>));
+
 //ToDo Auto mapper ile servisler otomatik eklenecek
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
