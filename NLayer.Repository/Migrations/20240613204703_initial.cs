@@ -25,6 +25,22 @@ namespace NLayer.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -73,28 +89,28 @@ namespace NLayer.Repository.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "DateTime", "Name", "UpdateDate" },
-                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kalemler", null });
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kalemler", null },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kitaplar", null },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Defterler", null }
+                });
 
             migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "DateTime", "Name", "UpdateDate" },
-                values: new object[] { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kitaplar", null });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "DateTime", "Name", "UpdateDate" },
-                values: new object[] { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Defterler", null });
+                table: "Users",
+                columns: new[] { "Id", "DateTime", "Name", "Password", "UpdateDate" },
+                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "nesil", "nesilpaspatur1*.", null });
 
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "Id", "CategoryId", "DateTime", "Name", "Price", "Stock", "UpdateDate" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3430), "Kalem 1", 100m, 20, null },
-                    { 2, 1, new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3440), "Kalem 2", 120m, 200, null },
-                    { 3, 1, new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3441), "Kalem 3", 150m, 25, null },
-                    { 4, 2, new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3442), "Kitap 1", 400m, 30, null },
-                    { 5, 2, new DateTime(2024, 6, 7, 14, 29, 55, 918, DateTimeKind.Local).AddTicks(3443), "Kitap 2", 200m, 10, null }
+                    { 1, 1, new DateTime(2024, 6, 13, 23, 47, 3, 345, DateTimeKind.Local).AddTicks(5432), "Kalem 1", 100m, 20, null },
+                    { 2, 1, new DateTime(2024, 6, 13, 23, 47, 3, 345, DateTimeKind.Local).AddTicks(5450), "Kalem 2", 120m, 200, null },
+                    { 3, 1, new DateTime(2024, 6, 13, 23, 47, 3, 345, DateTimeKind.Local).AddTicks(5452), "Kalem 3", 150m, 25, null },
+                    { 4, 2, new DateTime(2024, 6, 13, 23, 47, 3, 345, DateTimeKind.Local).AddTicks(5454), "Kitap 1", 400m, 30, null },
+                    { 5, 2, new DateTime(2024, 6, 13, 23, 47, 3, 345, DateTimeKind.Local).AddTicks(5456), "Kitap 2", 200m, 10, null }
                 });
 
             migrationBuilder.InsertData(
@@ -118,6 +134,9 @@ namespace NLayer.Repository.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ProductFeatures");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Products");

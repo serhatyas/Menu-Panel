@@ -19,6 +19,8 @@ namespace NLayer.Repository
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
         //ToDo productanda erişebildiği için bunu kapatabiliriz
         public DbSet<ProductFeature> ProductFeatures { get; set; }
 

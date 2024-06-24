@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+
+@model UserDto
+
+<form method="post" action="/Admin/login/index">
+    <div>
+        <label asp-for="@Model.Name"></label>
+        <input asp-for="@Model.Name" />
+    </div>
+    <div>
+        <label asp-for="@Model.Password"></label>
+        <input asp-for="@Model.Password" type="password" />
+    </div>
+    <button type="submit">Login</button>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div>
+        <span>Invalid login attempt.</span>
+    </div>
+}
+
+
