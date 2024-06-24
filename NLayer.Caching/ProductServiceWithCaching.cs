@@ -68,7 +68,7 @@ namespace NLayer.Caching
             var product=_memoryCache.Get<List<Product>>(CacheProductKey).FirstOrDefault(x=>x.Id==id);
             if (product==null)
             {
-                throw new NotFoundException($"{typeof(Product).Name}({id}) not found");
+                throw new NotFoundExcepiton($"{typeof(Product).Name}({id}) not found");
             }
             return Task.FromResult(product);
         }
