@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NLayer.Core.Services;
 using NLayer.Web.Models;
 using System.Diagnostics;
 
@@ -6,16 +7,16 @@ namespace NLayer.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IProductService _services;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IProductService services)
         {
-            _logger = logger;
+            _services = services;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _services.GetProductsWithCategory());
         }
 
         public IActionResult Privacy()

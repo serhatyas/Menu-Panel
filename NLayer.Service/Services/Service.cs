@@ -53,7 +53,7 @@ namespace NLayer.Service.Services
 
             if (hasProduct==null)
             {
-                throw new NotFoundException($"{typeof(T).Name}({id}) not found");
+                throw new NotFoundExcepiton($"{typeof(T).Name}({id}) not found");
             }
             return hasProduct;
         }

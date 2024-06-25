@@ -1,3 +1,5 @@
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,7 @@ using NLayer.Service.Mapping;
 using NLayer.Service.Services;
 using NLayer.Service.Validations;
 using System.Reflection;
+using NLayer.API.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +37,7 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
 builder.Services.AddAutoMapper(typeof(MapProfile));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IProductService, ProductServiceWithNoCaching>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -51,6 +54,11 @@ builder.Services.AddDbContext<AppDbContext>(x =>
     });
 
 });
+
+builder.Host.UseServiceProviderFactory
+    (new AutofacServiceProviderFactory());
+
+builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerBuilder.RegisterModule(new RepoServiceModule()));
 
 var app = builder.Build();
 
