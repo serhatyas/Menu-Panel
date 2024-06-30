@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NLayer.Core.Services;
-using NLayer.Web.Models;
 using System.Diagnostics;
 
 namespace NLayer.Web.Controllers

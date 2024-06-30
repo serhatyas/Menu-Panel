@@ -3,7 +3,6 @@ using Autofac;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using NLayer.API.Filters;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
@@ -15,10 +14,16 @@ using NLayer.Service.Services;
 using NLayer.Service.Validations;
 using System.Reflection;
 using NLayer.Web.Modules;
+using FluentValidation;
+using NLayer.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers(option => { option.Filters.Add(new ValidateFilterAttribute()); }).AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDtoValidator>());
+//builder.Services.AddControllers(option => { option.Filters.Add(new ValidateFilterAttribute()); }).AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDtoValidator>());
+
+builder.Services.AddControllersWithViews().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDtoValidator>()); ;
+
+
 builder.Services.AddAutoMapper(typeof(MapProfile));
 
 // Add services to the container.
@@ -30,7 +35,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     option.LoginPath = "/Admin/Login";
     option.AccessDeniedPath = "/Admin/Login";
 });
-
 
 builder.Services.AddDbContext<AppDbContext>(x =>
 {
@@ -44,6 +48,10 @@ builder.Services.AddDbContext<AppDbContext>(x =>
 
 });
 
+
+builder.Services.AddScoped(typeof(NotFoundFilter<>));
+
+
 builder.Host.UseServiceProviderFactory
     (new AutofacServiceProviderFactory());
 
@@ -52,9 +60,10 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder => containerB
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseExceptionHandler("/Home/Error");
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
 app.UseStaticFiles();
 
@@ -63,18 +72,32 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapAreaControllerRoute(
-        name:"Admin",
-        areaName:"Admin",
-        pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
-        );
-        endpoints.MapDefaultControllerRoute();
+        name: "admin",
+        areaName: "Admin",
+        pattern: "admin/{controller=Home}/{action=Index}/{id?}"
+    );
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
 });
+
+
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapAreaControllerRoute(
+//        name:"Admin",
+//        areaName:"Admin",
+//        pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+//        );
+//        endpoints.MapDefaultControllerRoute();
+//});
 
 app.Run();
