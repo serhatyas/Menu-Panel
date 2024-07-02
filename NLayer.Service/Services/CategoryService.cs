@@ -25,8 +25,8 @@ namespace NLayer.Service.Services
         public async Task<CustomResponseDto<CategoryWitProductsDto>> GetSingleCategoryByIdWithProductAsync(int categoryId)
         {
             var category = await _categoryRepository.GetSingleCategoryByIdWithProductAsync(categoryId);
-            var categoryDto=_mapper.Map<CategoryWitProductsDto>(category);
-            return CustomResponseDto<CategoryWitProductsDto>.Success(200, categoryDto);
+            var categoryWitProductsDto = _mapper.Map<CategoryWitProductsDto>(category);
+            return CustomResponseDto<CategoryWitProductsDto>.Success(200, categoryWitProductsDto);
         }
     }
 }

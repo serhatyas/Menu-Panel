@@ -9,5 +9,8 @@ namespace NLayer.Core.DTOs
     public class CategoryDto:BaseDto
     {
         public string Name { get; set; }
+        public string NameEN { get; set; }
+
+        public string Img { get; set; }
     }
 }

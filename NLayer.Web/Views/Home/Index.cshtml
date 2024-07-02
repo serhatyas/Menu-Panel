@@ -1,35 +1,45 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model List<CategoryDto>
 
-@model List<ProductWithCategoryDto>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <td>Id</td>
-            <td>Name</td>
-            <td>Price</td>
-            <td>Stock</td>
-            <td>Category</td>
-            <td>CreatedDate</td>
-        </tr>
-    </thead>
-    <tbody>
+@{
+    var culture = ViewBag.Culture as string ?? "tr";
+}
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Name</td>
-                <td>@item.Price</td>
-                <td>@item.Stock</td>
-                <td>@item.Category.Name</td>
-                <td>@item.CreatedDate</td>
-            </tr>
-        }
+<main class="main">
+    <!-- Chefs Section -->
+    <section id="chefs" class="chefs section">
 
-    </tbody>
+        <!-- Section Title -->
+        <div class="container section-title d-flex justify-content-center" data-aos="fade-up">
+            <p>NESİL PASPATUR</p>
+        </div><!-- End Section Title -->
+
+        <div class="container">
+            <div class="row gy-4">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="member">
+                            <a asp-controller="Home" asp-action="Detail" asp-route-id="@item.Id" asp-route-culture="@culture">
+                                <img src="@item.Img" class="img-fluid" alt="">
+                                <div class="member-info">
+                                    <div class="member-info-content">
+                                        <h4>@item.Name</h4>
+                                    </div>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </section><!-- /Chefs Section -->
 
 
-
-</table>
+</main>
