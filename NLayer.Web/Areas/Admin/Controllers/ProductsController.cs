@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NLayer.Core.DTOs;
@@ -8,18 +10,20 @@ using NLayer.Core.Services;
 namespace NLayer.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductsController(IProductService productService, ICategoryService categoryService, IMapper mapper)
+        public ProductsController(IProductService productService, ICategoryService categoryService, IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             _productService = productService;
             _categoryService = categoryService;
             _mapper = mapper;
-
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Index()
@@ -43,8 +47,29 @@ namespace NLayer.Web.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                if (productDto.ImageFile != null)
+                {
+                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "assets", "img");
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + productDto.ImageFile.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await productDto.ImageFile.CopyToAsync(fileStream);
+                    }
+                    productDto.Img = "assets/img/" + uniqueFileName; // Resmin yolunu Img özelliğine kaydet
+                }
+
                 await _productService.AddAsync(_mapper.Map<Product>(productDto));
                 return Redirect("/Admin/Products/Index");
+            }
+
+            foreach (var modelState in ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    // Hataları loglayın veya konsola yazdırın
+                    Console.WriteLine(error.ErrorMessage);
+                }
             }
 
             var categories = await _categoryService.GetAllAsync();
@@ -74,6 +99,18 @@ namespace NLayer.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                if (productDto.ImageFile != null)
+                {
+                    var uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "assets", "img");
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + productDto.ImageFile.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await productDto.ImageFile.CopyToAsync(fileStream);
+                    }
+                    productDto.Img = "assets/img/" + uniqueFileName;
+                }
 
                 await _productService.UpdateAsync(_mapper.Map<Product>(productDto));
                 return RedirectToAction(nameof(Index));

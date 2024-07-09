@@ -1,41 +1,68 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 @model List<ProductWithCategoryDto>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <td>Id</td>
-            <td>Name</td>
-            <td>Price</td>
-            <td>Stock</td>
-            <td>Category</td>
-            <td>CreatedDate</td>
-            <td>Actions</td>
-        </tr>
-    </thead>
-    <tbody>
+<div class="card">
+    <div class="card-body">
+        <h5 style="float: left;" class="card-title">
+            Ürünler
+        </h5>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Name</td>
-                <td>@item.Price</td>
-                <td>@item.Stock</td>
-                <td>@item.Category.Name</td>
-                <td>@item.CreatedDate</td>
-                <td>
-                    <a class="btn btn-warning" asp-area="Admin" asp-controller="Products" asp-action="Update" asp-route-id="@item.Id">Update</a>
+        <form action="/Admin/Products/Save" method="post">
+            <button style="float: right; margin-top: 10px;" type="submit" class="btn btn-primary">Ürün Ekle</button>
+        </form>
+    </div>
 
-                    <a class="btn btn-danger" asp-area="Admin"  asp-controller="Products" asp-action="Remove" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
 
-    </tbody>
-    </table>
+</div>
 
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Adı</th>
+                                <th scope="col">Adı (EN)</th>
+                                <th scope="col">Fiyatı</th>
+                                <th scope="col">Kategori</th>
+                                <th scope="col">Tarih</th>
+                                <th scope="col">Resim</th>
+                                <th scope="col">Aksiyon</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th scope="row">@item.Id</th>
+                                    <td>@item.Name</td>
+                                    <td>@item.NameEN</td>
+                                    <td>@item.Price</td>
+                                    <td>@item.Category.Name</td>
+                                    <td>@item.CreatedDate</td>
+                                    <td><img style="max-height:50px;" src="~/@item.Img" alt="Profile" class="rounded-circle"></td>
+                                    <td>
+                                        <a class="btn btn-warning" asp-area="Admin" asp-controller="Products" asp-action="Update" asp-route-id="@item.Id">Update</a>
+
+                                        <a class="btn btn-danger" asp-area="Admin" asp-controller="Products" asp-action="Remove" asp-route-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    <!-- End Table with stripped rows -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

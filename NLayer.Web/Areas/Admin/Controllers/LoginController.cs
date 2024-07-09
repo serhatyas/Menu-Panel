@@ -32,7 +32,7 @@ namespace NLayer.Web.Areas.Admin.Controllers
         {
             var userLogin = await _userSerivce.GetUserAsync(model.Name,model.Password);
 
-            if (userLogin != null)
+            if (userLogin.Data != null)
             {
                 var claims = new List<Claim>
                 {
@@ -52,8 +52,8 @@ namespace NLayer.Web.Areas.Admin.Controllers
                 return Redirect("/Admin");
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            return RedirectToAction("Admin", "Login");
+            ModelState.AddModelError(string.Empty, "Kullanıcı Adı veya Şifre yanlış!");
+            return View(model);
         }
 
 

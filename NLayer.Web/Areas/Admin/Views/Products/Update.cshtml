@@ -1,11 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Save";
+    ViewData["Title"] = "Update";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @model ProductDto
-<h1>Update Product</h1>
 
-<div class="row">
+@* <div class="row">
 
     <div class=col-md-6>
         <form asp-action="Update" method="post" asp-controller="Products">
@@ -41,5 +40,65 @@
 
     </div>
 
+
+</div> *@
+
+<div class="col-lg-6">
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Ürün Ekleme</h5>
+
+            <!-- General Form Elements -->
+            <form asp-action="Save" method="post" asp-controller="Products" enctype="multipart/form-data">
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Img" />
+                <input type="hidden" asp-for="CreatedDate" />
+                <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Ürün Adı (TR)</label>
+                    <div class="col-sm-10">
+                        <input type="text" asp-for="Name" class="form-control">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Ürün Adı (EN)</label>
+                    <div class="col-sm-10">
+                        <input type="text" asp-for="NameEN" class="form-control">
+                        <span asp-validation-for="NameEN" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <label for="inputText" class="col-sm-2 col-form-label">Ürün Fiyatı</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Price" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Kategori</label>
+                    <div class="col-sm-10">
+                        <select asp-for="CategoryId" asp-items="ViewBag.categories" class="form-select" aria-label="Default select example"></select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Resim</label>
+                    <div class="col-sm-10">
+                        <input type="file" asp-for="ImageFile" class="form-control">
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-10">
+                        <button type="submit" asp-area="Admin" value="Save" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </div>
+
+            </form><!-- End General Form Elements -->
+
+        </div>
+    </div>
 
 </div>

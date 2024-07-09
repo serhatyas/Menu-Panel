@@ -14,4 +14,8 @@
     <None Include="C:\Users\serha\source\repos\NLayerApp\NLayer.Core\Services\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+
 </Project>

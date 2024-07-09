@@ -21,7 +21,7 @@
                 <div class="col-lg-6 menu-item isotope-item filter-starters">
                     <img src="~/@item.Img" class="menu-img" alt="">
                     <div class="menu-content">
-                        <a href="#">@item.Name</a><span>@item.Price ₺</span>
+                        <a href="#">@item.Name</a><span>@(item.Price > 0 ? $"{item.Price}  ₺" : "-")</span>
                     </div>
                     <div class="menu-ingredients">
                     </div>
